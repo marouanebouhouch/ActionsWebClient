@@ -1,0 +1,29 @@
+<nav class="uk-navbar-container" uk-navbar="dropbar: true">
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li>
+        <a href="#">
+          <div>
+            Company
+          </div>
+        </a>
+        <div class="uk-navbar-dropdown">
+          <ul class="uk-nav uk-navbar-dropdown-nav">
+            <li routerLinkActive="uk-active"><a routerLink="companies/all">Companies</a></li>
+            <li routerLinkActive="uk-active"><a routerLink="companies/new">New Company</a></li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="#">
+          <div>
+            Tags
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div>
+  <router-outlet></router-outlet>
+</div>

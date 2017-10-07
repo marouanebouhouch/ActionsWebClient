@@ -1,0 +1,34 @@
+<div class="uk-grid-collapse uk-child-width-expand@s" uk-grid>
+  <div >
+    <h1 class="uk-heading-line"><span>Companies</span></h1>
+    <hr/>
+    <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-hover">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Turnover</th>
+        <th>CEO</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of companies | paginate: { itemsPerPage: 8, currentPage: p }" class="clickable"
+          (click)="selectCompany(c)" [ngClass]="selectedCompany ? (selectedCompany.id == c.id? 'selected' : '' ) : ''" >
+        <td>
+          <img class="uk-preserve-width uk-border-circle" src="{{c.logo}}" width="40" alt="No logo">
+        </td>
+        <td>{{c.name}}</td>
+        <td>{{c.turnover | currency}}</td>
+        <td>{{c.ceo}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <pagination-controls (pageChange)="p = $event" class="uk-pagination"></pagination-controls>
+  </div>
+
+
+  <div class="divider">
+    <app-company-details [company]="selectedCompany" *ngIf="selectCompany" (toDelete)="deleteCompany($event)"></app-company-details>
+  </div>
+</div>

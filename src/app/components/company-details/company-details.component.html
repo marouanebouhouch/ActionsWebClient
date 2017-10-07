@@ -1,0 +1,57 @@
+<div *ngIf="company">
+<div class="uk-cover-container">
+  <canvas width="1000" height="100"></canvas>
+  <img uk-cover src="{{company.logo}}" alt="No logo">
+</div>
+<table>
+  <tr>
+    <td><b>Name</b></td>
+    <td><b> : </b>{{company.name}}</td>
+  </tr>
+  <tr>
+    <td><b>Address</b></td>
+    <td><b> : </b>{{company.address}}</td>
+  </tr>
+  <tr>
+    <td><b>CEO</b></td>
+    <td><b> : </b>{{company.ceo}}</td>
+  </tr>
+  <tr>
+    <td><b>Turnover</b></td>
+    <td><b> : </b>{{company.turnover | currency}}</td>
+  </tr>
+  <tr>
+    <td><b>Industry</b></td>
+    <td><b> : </b>{{company.catchphrase}}</td>
+  </tr>
+  <tr>
+    <td><b>URL</b></td>
+    <td><b> : </b><a href="http://{{company.url}}">{{company.url}}</a></td>
+  </tr>
+</table>
+  <hr/>
+  <button class="uk-button uk-button-danger" (click)="deleteCompany(company)">
+    <span uk-icon="icon: trash"></span>
+    Delete
+  </button>
+  <button class="uk-button uk-button-primary">
+    <span uk-icon="icon: pencil"></span>
+    Update
+  </button>
+  <div class="rightFloat">
+    <button class="uk-button uk-button-secondary">
+      <span uk-icon="icon: list"></span>
+      Operations
+    </button>
+  </div>
+<hr/>
+<div *ngIf="tags">
+  <span *ngFor="let t of tags" class="uk-badge badge-space">
+    {{t.label | titlecase}} <span uk-icon="icon: close" class="clickable" (click)="removeTagFromCompany(company,t)"></span>
+  </span>
+</div>
+<hr/>
+<agm-map [latitude]="company.latitude" [longitude]="company.longitude" [zoom] = "2">
+  <agm-marker [latitude]="company.latitude" [longitude]="company.longitude"></agm-marker>
+</agm-map>
+</div>
