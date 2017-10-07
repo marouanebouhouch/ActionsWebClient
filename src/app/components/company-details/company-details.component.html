@@ -3,7 +3,7 @@
   <canvas width="1000" height="100"></canvas>
   <img uk-cover src="{{company.logo}}" alt="No logo">
 </div>
-<table>
+<table class="left-space">
   <tr>
     <td><b>Name</b></td>
     <td><b> : </b>{{company.name}}</td>
@@ -28,8 +28,18 @@
     <td><b>URL</b></td>
     <td><b> : </b><a href="http://{{company.url}}">{{company.url}}</a></td>
   </tr>
+  <tr>
+    <td><b>Tags</b></td>
+    <td><b> : </b></td>
+  </tr>
 </table>
-  <hr/>
+<div *ngIf="tags">
+<span *ngFor="let t of tags" class="uk-badge left-space">
+  {{t.label | titlecase}} <span uk-icon="icon: close" class="clickable" (click)="removeTagFromCompany(company,t)"></span>
+</span>
+</div>
+<hr/>
+<div class="left-space">
   <button class="uk-button uk-button-danger" (click)="deleteCompany(company)">
     <span uk-icon="icon: trash"></span>
     Delete
@@ -44,12 +54,8 @@
       Operations
     </button>
   </div>
-<hr/>
-<div *ngIf="tags">
-  <span *ngFor="let t of tags" class="uk-badge badge-space">
-    {{t.label | titlecase}} <span uk-icon="icon: close" class="clickable" (click)="removeTagFromCompany(company,t)"></span>
-  </span>
 </div>
+
 <hr/>
 <agm-map [latitude]="company.latitude" [longitude]="company.longitude" [zoom] = "2">
   <agm-marker [latitude]="company.latitude" [longitude]="company.longitude"></agm-marker>
