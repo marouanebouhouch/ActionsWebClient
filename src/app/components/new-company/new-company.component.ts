@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Tag} from '../../interfaces/tag';
 import {TagService} from '../../services/tag.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Company} from '../../interfaces/company';
 
 @Component({
   selector: 'app-new-company',
@@ -12,10 +14,18 @@ export class NewCompanyComponent implements OnInit {
   latitude: number;
   longitude: number;
   tags: Tag[];
-  constructor(private tagService: TagService) { }
+  newTag: Tag;
+  tagLabel: string;
+  formGroup: FormGroup;
+  newCompany: Company;
+  constructor(private tagService: TagService, private formBuilder: FormBuilder) {
+    this.formGroup = formBuilder.group({
+      'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
+    });
+  }
 
   ngOnInit() {
-    this.tagService.getTags().then(response => this.tags = response);
+    this.loadTagsList();
   }
 
   getPosition($event) {
@@ -23,4 +33,14 @@ export class NewCompanyComponent implements OnInit {
     this.longitude = $event.coords.lng;
   }
 
+  addTag(label: string) {
+    this.tagService.addTag(label)
+      .then(response => console.log(response));
+  }
+
+  loadTagsList() {
+    this.tagService.getTags().then(response => this.tags = response);
+  }
+
+  saveCompany(company: Company) {}
 }

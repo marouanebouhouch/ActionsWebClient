@@ -2,34 +2,34 @@
   <div>
     <h1 class="uk-heading-line"><span>New company</span></h1>
     <hr/>
-    <form class="form-spacer">
+    <form class="form-spacer" [formGroup]="formGroup" (ngSubit)="saveCompany(formGroup.value)">
       <div class="uk-margin">
         <label class="uk-form-label" for="name">Name</label>
-        <input class="uk-input" type="text" id="name" ngModel required>
+        <input class="uk-input" type="text" id="name" formControlName="name" >
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="ceo">CEO</label>
-        <input class="uk-input" type="text" id="ceo" ngModel >
+        <input class="uk-input" type="text" id="ceo"  >
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="turnover">Turnover</label>
-        <input class="uk-input" type="text" id="turnover" ngModel >
+        <input class="uk-input" type="text" id="turnover"  >
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="industry">Industry</label>
-        <input class="uk-input" type="text" id="industry" ngModel>
+        <input class="uk-input" type="text" id="industry" >
       </div>
       <div class="uk-margin">
-        <label class="uk-form-label" for="name">Name</label>
-        <input class="uk-input" type="text" id="Address" ngModel>
+        <label class="uk-form-label" for="address">Address</label>
+        <input class="uk-input" type="text" id="address" >
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="url">URL</label>
-        <input class="uk-input" type="text" id="url" ngModel>
+        <input class="uk-input" type="text" id="url" >
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="logo">Logo</label>
-        <input class="uk-input" type="text" id="logo" ngModel>
+        <input class="uk-input" type="text" id="logo" >
       </div>
       <hr/>
       <div>
@@ -39,10 +39,10 @@
       </div>
       <div class="uk-margin uk-grid-small" uk-grid>
         <div class="uk-width-5-6@s">
-          <input class="uk-input" type="text" placeholder="Add a new tag" ngModel>
+          <input class="uk-input" type="text" placeholder="Add a new tag" >
         </div>
         <div class="uk-width-1-6@s">
-          <button class="uk-button uk-button-primary">Add</button>
+          <button class="uk-button uk-button-primary" (click)="addTag(newTag)">Add</button>
         </div>
       </div>
       <hr/>
@@ -51,11 +51,11 @@
           <agm-marker [latitude]="0" [longitude]="0" [markerDraggable]="true" (dragEnd)="getPosition($event)"></agm-marker>
         </agm-map>
       </div>
-      <button class="uk-button uk-button-primary rightFloat">Submit</button>
+      <button class="uk-button uk-button-primary rightFloat" type="submit" [disabled]="!formGroup.valid">Submit</button>
     </form>
   </div>
 
   <div class="divider">
-
+    {{tagLabel}}
   </div>
 </div>

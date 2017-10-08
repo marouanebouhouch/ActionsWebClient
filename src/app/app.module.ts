@@ -11,6 +11,7 @@ import { CompanyDetailsComponent } from './components/company-details/company-de
 import {TagService} from './services/tag.service';
 import { AgmCoreModule } from '@agm/core';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { NewCompanyComponent } from './components/new-company/new-company.compon
     NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBbJ88RITpYfSuYe8RPxDK1xyHl77BoD_Y'
-    })
+    }),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [CompanyService, TagService],
   bootstrap: [AppComponent]
