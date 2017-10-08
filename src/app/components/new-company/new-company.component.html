@@ -3,55 +3,75 @@
     <h1 class="uk-heading-line"><span>New company</span></h1>
     <hr/>
     <form class="form-spacer" [formGroup]="formGroup" (ngSubit)="saveCompany(formGroup.value)">
+
       <div class="uk-margin">
         <label class="uk-form-label" for="name">Name</label>
-        <input class="uk-input" type="text" id="name" formControlName="name" >
+        <input type="text" id="name" formControlName="name"
+               [ngClass]="!formGroup.controls['name'].valid && formGroup.controls['name'].touched ? 'uk-form-danger uk-input uk-form-small' : 'uk-input uk-form-small'">
+        <div class="uk-text-danger"
+             *ngIf="!formGroup.controls['name'].valid && formGroup.controls['name'].touched">
+          <span uk-icon="icon: warning"></span>
+          This is required
+        </div>
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="ceo">CEO</label>
-        <input class="uk-input" type="text" id="ceo"  >
+        <input class="uk-input uk-form-small" type="text" id="ceo"  >
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="turnover">Turnover</label>
-        <input class="uk-input" type="text" id="turnover"  >
+        <input class="uk-input uk-form-small" type="text" id="turnover"  >
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="industry">Industry</label>
-        <input class="uk-input" type="text" id="industry" >
+        <input class="uk-input uk-form-small" type="text" id="industry" >
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="address">Address</label>
-        <input class="uk-input" type="text" id="address" >
+        <input class="uk-input uk-form-small" type="text" id="address" >
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="url">URL</label>
-        <input class="uk-input" type="text" id="url" >
+        <input class="uk-input uk-form-small" type="text" id="url" >
       </div>
+
       <div class="uk-margin">
         <label class="uk-form-label" for="logo">Logo</label>
-        <input class="uk-input" type="text" id="logo" >
+        <input class="uk-input uk-form-small" type="text" id="logo" >
       </div>
+
       <hr/>
+
       <div>
         <span *ngFor="let t of tags" class="uk-badge right-space">
           <input class="uk-checkbox my-checkbox" type="checkbox"> <span>{{t.label | titlecase}}</span>
         </span>
       </div>
+
       <div class="uk-margin uk-grid-small" uk-grid>
         <div class="uk-width-5-6@s">
-          <input class="uk-input" type="text" placeholder="Add a new tag" >
+          <input class="uk-input uk-form-small" type="text" placeholder="Add a new tag" >
         </div>
         <div class="uk-width-1-6@s">
-          <button class="uk-button uk-button-primary" (click)="addTag(newTag)">Add</button>
+          <button class="uk-button uk-button-primary uk-button-small uk-width-1-1" (click)="addTag(newTag)">Add</button>
         </div>
       </div>
+
       <hr/>
+
       <div>
         <agm-map [latitude]="0" [longitude]="0" [zoom] = "1">
           <agm-marker [latitude]="0" [longitude]="0" [markerDraggable]="true" (dragEnd)="getPosition($event)"></agm-marker>
         </agm-map>
       </div>
-      <button class="uk-button uk-button-primary rightFloat" type="submit" [disabled]="!formGroup.valid">Submit</button>
+
+      <button class="uk-button uk-button-primary rightFloat submit-margins" type="submit" [disabled]="!formGroup.valid">Submit</button>
+
     </form>
   </div>
 
