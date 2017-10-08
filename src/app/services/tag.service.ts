@@ -13,7 +13,7 @@ export class TagService {
   getTags() {
     return this.http.get(tagsUrl)
       .toPromise()
-      .then(response => response.json()._embedded.companies)
+      .then(response => response.json()._embedded.tags)
       .catch(this.handleError);
   }
 

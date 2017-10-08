@@ -2,6 +2,57 @@
   <div>
     <h1 class="uk-heading-line"><span>New company</span></h1>
     <hr/>
+    <form class="form-spacer">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="name">Name</label>
+        <input class="uk-input" type="text" id="name" ngModel required>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="ceo">CEO</label>
+        <input class="uk-input" type="text" id="ceo" ngModel >
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="turnover">Turnover</label>
+        <input class="uk-input" type="text" id="turnover" ngModel >
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="industry">Industry</label>
+        <input class="uk-input" type="text" id="industry" ngModel>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="name">Name</label>
+        <input class="uk-input" type="text" id="Address" ngModel>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="url">URL</label>
+        <input class="uk-input" type="text" id="url" ngModel>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="logo">Logo</label>
+        <input class="uk-input" type="text" id="logo" ngModel>
+      </div>
+      <hr/>
+      <div>
+        <span *ngFor="let t of tags" class="uk-badge right-space">
+          <input class="uk-checkbox my-checkbox" type="checkbox"> <span>{{t.label | titlecase}}</span>
+        </span>
+      </div>
+      <div class="uk-margin uk-grid-small" uk-grid>
+        <div class="uk-width-5-6@s">
+          <input class="uk-input" type="text" placeholder="Add a new tag" ngModel>
+        </div>
+        <div class="uk-width-1-6@s">
+          <button class="uk-button uk-button-primary">Add</button>
+        </div>
+      </div>
+      <hr/>
+      <div>
+        <agm-map [latitude]="0" [longitude]="0" [zoom] = "1">
+          <agm-marker [latitude]="0" [longitude]="0" [markerDraggable]="true" (dragEnd)="getPosition($event)"></agm-marker>
+        </agm-map>
+      </div>
+      <button class="uk-button uk-button-primary rightFloat">Submit</button>
+    </form>
   </div>
 
   <div class="divider">

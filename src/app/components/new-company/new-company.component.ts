@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Tag} from '../../interfaces/tag';
+import {TagService} from '../../services/tag.service';
 
 @Component({
   selector: 'app-new-company',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewCompanyComponent implements OnInit {
 
-  constructor() { }
+  latitude: number;
+  longitude: number;
+  tags: Tag[];
+  constructor(private tagService: TagService) { }
 
   ngOnInit() {
+    this.tagService.getTags().then(response => this.tags = response);
+  }
+
+  getPosition($event) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
   }
 
 }
