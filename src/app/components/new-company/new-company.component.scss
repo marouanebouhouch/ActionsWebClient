@@ -32,3 +32,16 @@ agm-map {
 .left-space{
   margin-left: 5px;
 }
+
+.left-side{
+  overflow-y: scroll;
+}
+
+.right-side{
+  overflow-y: scroll;
+}
+
+.container{
+  height: 100vh;
+  overflow-y:hidden;
+}

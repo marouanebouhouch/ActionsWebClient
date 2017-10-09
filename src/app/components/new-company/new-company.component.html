@@ -1,5 +1,5 @@
-<div class="uk-grid-small uk-child-width-expand@s" uk-grid>
-  <div>
+<div class="uk-grid-small uk-child-width-expand@s container" uk-grid>
+  <div class="left-side">
     <h1 class="uk-heading-line"><span>New company</span></h1>
     <hr/>
     <form class="form-spacer" [formGroup]="formGroup" (ngSubmit)="saveCompany(formGroup.value)">
@@ -79,7 +79,7 @@
     </form>
   </div>
 
-  <div class="divider uk-fixed">
+  <div class="divider right-side">
     <div class="uk-cover-container" *ngIf="newCompanyLogo">
       <canvas width="1000" height="100"></canvas>
       <img uk-cover src="{{newCompanyLogo}}" alt="No logo">
