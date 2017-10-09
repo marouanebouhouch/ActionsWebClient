@@ -11,16 +11,31 @@ import {Company} from '../../interfaces/company';
 })
 export class NewCompanyComponent implements OnInit {
 
-  latitude: number;
-  longitude: number;
   tags: Tag[];
-  newTag: Tag;
   tagLabel: string;
   formGroup: FormGroup;
   newCompany: Company;
+  newCompanyName: String;
+  newCompanyAddress: String;
+  newCompanyTurnover: number;
+  newCompanyCeo: String;
+  newCompanyCatchphrase: String;
+  newCompanyLogo: String;
+  newCompanyIndustry: String;
+  newCompanyUrl: String;
+  newCompanyLatitude: number;
+  newCompanyLongitude: number;
+  newCompanyTags: Tag[];
   constructor(private tagService: TagService, private formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
+      'ceo': [],
+      'turnover': [],
+      'industry': [],
+      'address': [],
+      'url': [],
+      'logo': [],
+      'tagLabel': []
     });
   }
 
@@ -29,13 +44,15 @@ export class NewCompanyComponent implements OnInit {
   }
 
   getPosition($event) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+    this.newCompanyLatitude = $event.coords.lat;
+    this.newCompanyLongitude = $event.coords.lng;
   }
 
   addTag(label: string) {
-    this.tagService.addTag(label)
-      .then(response => console.log(response));
+    if (label.trim() !== '') {
+      this.tagService.addTag(label)
+        .then(response => this.tags.push(response));
+    }
   }
 
   loadTagsList() {

@@ -2,11 +2,11 @@
   <div>
     <h1 class="uk-heading-line"><span>New company</span></h1>
     <hr/>
-    <form class="form-spacer" [formGroup]="formGroup" (ngSubit)="saveCompany(formGroup.value)">
+    <form class="form-spacer" [formGroup]="formGroup" (ngSubmit)="saveCompany(formGroup.value)">
 
       <div class="uk-margin">
         <label class="uk-form-label" for="name">Name</label>
-        <input type="text" id="name" formControlName="name"
+        <input type="text" id="name" formControlName="name" [(ngModel)]="newCompanyName"
                [ngClass]="!formGroup.controls['name'].valid && formGroup.controls['name'].touched ? 'uk-form-danger uk-input uk-form-small' : 'uk-input uk-form-small'">
         <div class="uk-text-danger"
              *ngIf="!formGroup.controls['name'].valid && formGroup.controls['name'].touched">
@@ -17,48 +17,48 @@
 
       <div class="uk-margin">
         <label class="uk-form-label" for="ceo">CEO</label>
-        <input class="uk-input uk-form-small" type="text" id="ceo"  >
+        <input class="uk-input uk-form-small" type="text" id="ceo" formControlName="ceo" [(ngModel)]="newCompanyCeo">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="turnover">Turnover</label>
-        <input class="uk-input uk-form-small" type="text" id="turnover"  >
+        <input class="uk-input uk-form-small" type="number" id="turnover" formControlName="turnover" [(ngModel)]="newCompanyTurnover">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="industry">Industry</label>
-        <input class="uk-input uk-form-small" type="text" id="industry" >
+        <input class="uk-input uk-form-small" type="text" id="industry" formControlName="industry" [(ngModel)]="newCompanyIndustry">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="address">Address</label>
-        <input class="uk-input uk-form-small" type="text" id="address" >
+        <input class="uk-input uk-form-small" type="text" id="address" formControlName="address" [(ngModel)]="newCompanyAddress">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="url">URL</label>
-        <input class="uk-input uk-form-small" type="text" id="url" >
+        <input class="uk-input uk-form-small" type="text" id="url" formControlName="url" [(ngModel)]="newCompanyUrl">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="logo">Logo</label>
-        <input class="uk-input uk-form-small" type="text" id="logo" >
+        <input class="uk-input uk-form-small" type="text" id="logo" formControlName="logo" [(ngModel)]="newCompanyLogo">
       </div>
 
       <hr/>
 
       <div>
         <span *ngFor="let t of tags" class="uk-badge right-space">
-          <input class="uk-checkbox my-checkbox" type="checkbox"> <span>{{t.label | titlecase}}</span>
+          <input class="uk-checkbox my-checkbox" type="checkbox"><span>{{t.label | titlecase}}</span>
         </span>
       </div>
 
       <div class="uk-margin uk-grid-small" uk-grid>
         <div class="uk-width-5-6@s">
-          <input class="uk-input uk-form-small" type="text" placeholder="Add a new tag" >
+          <input class="uk-input uk-form-small" type="text" placeholder="Add a new tag" formControlName="tagLabel" [(ngModel)]="tagLabel">
         </div>
         <div class="uk-width-1-6@s">
-          <button class="uk-button uk-button-primary uk-button-small uk-width-1-1" (click)="addTag(newTag)">Add</button>
+          <button class="uk-button uk-button-primary uk-button-small uk-width-1-1" (click)="addTag(tagLabel)">Add</button>
         </div>
       </div>
 
@@ -76,6 +76,39 @@
   </div>
 
   <div class="divider">
-    {{tagLabel}}
+    <div class="uk-cover-container" *ngIf="newCompanyLogo">
+      <canvas width="1000" height="100"></canvas>
+      <img uk-cover src="{{newCompanyLogo}}" alt="No logo">
+    </div>
+    <table class="left-space">
+      <tr *ngIf="newCompanyName">
+        <td><b>Name</b></td>
+        <td><b> : </b>{{newCompanyName}}</td>
+      </tr>
+      <tr *ngIf="newCompanyAddress">
+        <td><b>Address</b></td>
+        <td><b> : </b>{{newCompanyAddress}}</td>
+      </tr>
+      <tr *ngIf="newCompanyCeo">
+        <td><b>CEO</b></td>
+        <td><b> : </b>{{newCompanyCeo}}</td>
+      </tr>
+      <tr *ngIf="newCompanyTurnover">
+        <td><b>Turnover</b></td>
+        <td><b> : </b>{{newCompanyTurnover | currency}}</td>
+      </tr>
+      <tr *ngIf="newCompanyIndustry">
+        <td><b>Industry</b></td>
+        <td><b> : </b>{{newCompanyIndustry}}</td>
+      </tr>
+      <tr *ngIf="newCompanyUrl">
+        <td><b>URL</b></td>
+        <td><b> : </b><a href="http://{{newCompanyUrl}}">{{newCompanyUrl}}</a></td>
+      </tr>
+      <tr *ngIf="newCompanyTags">
+        <td><b>Tags</b></td>
+        <td><b> : </b></td>
+      </tr>
+    </table>
   </div>
 </div>
