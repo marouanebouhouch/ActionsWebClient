@@ -23,9 +23,11 @@ export class NewCompanyComponent implements OnInit {
   newCompanyLogo: String;
   newCompanyIndustry: String;
   newCompanyUrl: String;
-  newCompanyLatitude: number;
-  newCompanyLongitude: number;
-  newCompanyTags: Tag[];
+  newCompanyLatitude = 0;
+  newCompanyLongitude = 0;
+  newCompanyTags: Tag[] = [];
+  showTags = false;
+  showMap = false;
   constructor(private tagService: TagService, private formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
@@ -35,7 +37,8 @@ export class NewCompanyComponent implements OnInit {
       'address': [],
       'url': [],
       'logo': [],
-      'tagLabel': []
+      'tagLabel': [],
+      'showMap': []
     });
   }
 
@@ -60,4 +63,13 @@ export class NewCompanyComponent implements OnInit {
   }
 
   saveCompany(company: Company) {}
+
+  toggleCompanyTag(tag: Tag) {
+    if (this.newCompanyTags.indexOf(tag) === -1) {
+      this.newCompanyTags.push(tag);
+    } else {
+      this.newCompanyTags.splice(this.newCompanyTags.indexOf(tag));
+    }
+    this.newCompanyTags.length ? this.showTags = true : this.showTags = false;
+  }
 }

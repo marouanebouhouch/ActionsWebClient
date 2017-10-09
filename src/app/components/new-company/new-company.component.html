@@ -16,6 +16,11 @@
       </div>
 
       <div class="uk-margin">
+        <label class="uk-form-label" for="address">Address</label>
+        <input class="uk-input uk-form-small" type="text" id="address" formControlName="address" [(ngModel)]="newCompanyAddress">
+      </div>
+
+      <div class="uk-margin">
         <label class="uk-form-label" for="ceo">CEO</label>
         <input class="uk-input uk-form-small" type="text" id="ceo" formControlName="ceo" [(ngModel)]="newCompanyCeo">
       </div>
@@ -28,11 +33,6 @@
       <div class="uk-margin">
         <label class="uk-form-label" for="industry">Industry</label>
         <input class="uk-input uk-form-small" type="text" id="industry" formControlName="industry" [(ngModel)]="newCompanyIndustry">
-      </div>
-
-      <div class="uk-margin">
-        <label class="uk-form-label" for="address">Address</label>
-        <input class="uk-input uk-form-small" type="text" id="address" formControlName="address" [(ngModel)]="newCompanyAddress">
       </div>
 
       <div class="uk-margin">
@@ -49,7 +49,7 @@
 
       <div>
         <span *ngFor="let t of tags" class="uk-badge right-space">
-          <input class="uk-checkbox my-checkbox" type="checkbox"><span>{{t.label | titlecase}}</span>
+          <input class="uk-checkbox my-checkbox" type="checkbox" (change)=" toggleCompanyTag(t)" ><span>{{t.label | titlecase}}</span>
         </span>
       </div>
 
@@ -65,7 +65,11 @@
       <hr/>
 
       <div>
-        <agm-map [latitude]="0" [longitude]="0" [zoom] = "1">
+        <label>
+          <input class="uk-checkbox" type="checkbox" formControlName="showMap" [(ngModel)]="showMap">
+          <span uk-icon="icon: location"></span> Localise
+        </label>
+        <agm-map [latitude]="0" [longitude]="0" [zoom] = "2" class="agm-input">
           <agm-marker [latitude]="0" [longitude]="0" [markerDraggable]="true" (dragEnd)="getPosition($event)"></agm-marker>
         </agm-map>
       </div>
@@ -75,7 +79,7 @@
     </form>
   </div>
 
-  <div class="divider">
+  <div class="divider uk-fixed">
     <div class="uk-cover-container" *ngIf="newCompanyLogo">
       <canvas width="1000" height="100"></canvas>
       <img uk-cover src="{{newCompanyLogo}}" alt="No logo">
@@ -105,10 +109,23 @@
         <td><b>URL</b></td>
         <td><b> : </b><a href="http://{{newCompanyUrl}}">{{newCompanyUrl}}</a></td>
       </tr>
-      <tr *ngIf="newCompanyTags">
+      <tr *ngIf="showTags">
         <td><b>Tags</b></td>
         <td><b> : </b></td>
       </tr>
     </table>
+
+    <div *ngIf="showTags">
+      <span *ngFor="let t of newCompanyTags" class="uk-badge left-space">
+        {{t.label | titlecase}} <span uk-icon="icon: close"></span>
+      </span>
+    </div>
+
+    <hr/>
+
+    <agm-map [latitude]="newCompanyLatitude" [longitude]="newCompanyLongitude" [zoom] = "2" *ngIf="showMap">
+      <agm-marker [latitude]="newCompanyLatitude" [longitude]="newCompanyLongitude"></agm-marker>
+    </agm-map>
+
   </div>
 </div>
