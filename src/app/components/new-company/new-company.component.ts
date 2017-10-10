@@ -67,12 +67,14 @@ export class NewCompanyComponent implements OnInit {
 
   saveCompany(company: Company) {}
 
-  toggleCompanyTag(tag: Tag) {
-    if (this.newCompanyTags.indexOf(tag) === -1) {
+  toggleCompanyTag(tag: Tag, isChecked: boolean) {
+    if (isChecked) {
       this.newCompanyTags.push(tag);
     } else {
-      this.newCompanyTags.splice(this.newCompanyTags.indexOf(tag));
+      console.log('removed : ' + this.newCompanyTags.indexOf(tag));
+      this.newCompanyTags.splice(this.newCompanyTags.indexOf(tag),1);
     }
+    console.log(this.newCompanyTags);
     this.newCompanyTags.length ? this.showTags = true : this.showTags = false;
   }
 }
