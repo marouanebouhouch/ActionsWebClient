@@ -28,6 +28,7 @@ export class NewCompanyComponent implements OnInit {
   newCompanyTags: Tag[] = [];
   showTags = false;
   showMap = false;
+  tagExists;
   constructor(private tagService: TagService, private formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
@@ -52,10 +53,12 @@ export class NewCompanyComponent implements OnInit {
   }
 
   addTag(label: string) {
-    if (label.trim() !== '') {
-      this.tagService.addTag(label)
-        .then(response => this.tags.push(response));
-    }
+    this.tagService.tagExists(label).subscribe(resp => {
+      if (label.trim() !== '' && !resp) {
+        console.log(resp);
+        this.tagService.addTag(label)
+          .then(response => this.tags.push(response));
+      }});
   }
 
   loadTagsList() {

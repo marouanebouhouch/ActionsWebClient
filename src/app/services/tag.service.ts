@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Company} from '../interfaces/company';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
+import {Observable} from 'rxjs/Observable';
+
 
 const tagsUrl = 'http://localhost:8080/tags';
 const companiesUrl = 'http://localhost:8080/companies';
@@ -29,6 +33,11 @@ export class TagService {
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
+  }
+
+  tagExists(label: string) {
+    return this.http.get(tagsUrl + '/exists?label=' + label )
+      .map(res => res.json());
   }
 
   private handleError(error: any): Promise<any> {
