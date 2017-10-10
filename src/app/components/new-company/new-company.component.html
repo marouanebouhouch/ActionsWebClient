@@ -49,7 +49,9 @@
 
       <div>
         <span *ngFor="let t of tags" class="uk-badge right-space">
-          <input class="uk-checkbox my-checkbox" type="checkbox" (change)="toggleCompanyTag(t, $event.target.checked)" ><span>{{t.label | titlecase}}</span>
+          <input class="uk-checkbox my-checkbox" type="checkbox"
+                 (change)="toggleCompanyTag(t, $event.target.checked)">
+          <span>{{t.label | titlecase}}</span>
         </span>
       </div>
 
@@ -126,6 +128,5 @@
     <agm-map [latitude]="newCompanyLatitude" [longitude]="newCompanyLongitude" [zoom] = "2" *ngIf="showMap">
       <agm-marker [latitude]="newCompanyLatitude" [longitude]="newCompanyLongitude"></agm-marker>
     </agm-map>
-
   </div>
 </div>

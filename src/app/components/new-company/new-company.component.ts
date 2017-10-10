@@ -3,6 +3,7 @@ import {Tag} from '../../interfaces/tag';
 import {TagService} from '../../services/tag.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Company} from '../../interfaces/company';
+import {CompanyService} from '../../services/company.service';
 
 @Component({
   selector: 'app-new-company',
@@ -29,7 +30,7 @@ export class NewCompanyComponent implements OnInit {
   showTags = false;
   showMap = false;
   tagExists;
-  constructor(private tagService: TagService, private formBuilder: FormBuilder) {
+  constructor(private companyService: CompanyService, private tagService: TagService, private formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
       'ceo': [],
@@ -55,7 +56,6 @@ export class NewCompanyComponent implements OnInit {
   addTag(label: string) {
     this.tagService.tagExists(label).subscribe(resp => {
       if (label.trim() !== '' && !resp) {
-        console.log(resp);
         this.tagService.addTag(label)
           .then(response => this.tags.push(response));
       }});
@@ -65,7 +65,9 @@ export class NewCompanyComponent implements OnInit {
     this.tagService.getTags().then(response => this.tags = response);
   }
 
-  saveCompany(company: Company) {}
+  saveCompany(company: Company) {
+    this.companyService.saveCompany(company, this.newCompanyTags);
+  }
 
   toggleCompanyTag(tag: Tag, isChecked: boolean) {
     if (isChecked) {

@@ -1,3 +1,5 @@
+import {Tag} from './tag';
+
 export interface Company {
   id: number;
   name: String;
@@ -10,4 +12,5 @@ export interface Company {
   url: String;
   latitude: number;
   longitude: number;
+  tags: Tag[];
 }
