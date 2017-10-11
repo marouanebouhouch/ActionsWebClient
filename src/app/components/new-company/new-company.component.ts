@@ -34,6 +34,7 @@ export class NewCompanyComponent implements OnInit {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
       'ceo': [],
+      'catchphrase': [],
       'turnover': [],
       'industry': [],
       'address': [],
@@ -66,6 +67,13 @@ export class NewCompanyComponent implements OnInit {
   }
 
   saveCompany(company: Company) {
+    if (this.showMap) {
+      company.longitude = this.newCompanyLongitude;
+      company.latitude = this.newCompanyLatitude;
+    } else {
+      company.longitude = null;
+      company.latitude = null;
+    }
     this.companyService.saveCompany(company, this.newCompanyTags);
   }
 
@@ -73,10 +81,8 @@ export class NewCompanyComponent implements OnInit {
     if (isChecked) {
       this.newCompanyTags.push(tag);
     } else {
-      console.log('removed : ' + this.newCompanyTags.indexOf(tag));
       this.newCompanyTags.splice(this.newCompanyTags.indexOf(tag),1);
     }
-    console.log(this.newCompanyTags);
     this.newCompanyTags.length ? this.showTags = true : this.showTags = false;
   }
 }

@@ -1,5 +1,5 @@
 <div *ngIf="company">
-<div class="uk-cover-container">
+<div class="uk-cover-container" *ngIf="company.logo">
   <canvas width="1000" height="100"></canvas>
   <img uk-cover src="{{company.logo}}" alt="No logo">
 </div>
@@ -8,32 +8,32 @@
     <td><b>Name</b></td>
     <td><b> : </b>{{company.name}}</td>
   </tr>
-  <tr>
+  <tr *ngIf="company.address">
     <td><b>Address</b></td>
     <td><b> : </b>{{company.address}}</td>
   </tr>
-  <tr>
+  <tr *ngIf="company.ceo">
     <td><b>CEO</b></td>
     <td><b> : </b>{{company.ceo}}</td>
   </tr>
   <tr>
-  <tr>
+  <tr *ngIf="company.catchphrase">
     <td><b>Catchphrase</b></td>
     <td><b> : </b>{{company.catchphrase}}</td>
   </tr>
-  <tr>
+  <tr *ngIf="company.turnover !== 0">
     <td><b>Turnover</b></td>
     <td><b> : </b>{{company.turnover | currency}}</td>
   </tr>
-  <tr>
+  <tr *ngIf="company.industry">
     <td><b>Industry</b></td>
-    <td><b> : </b>{{company.catchphrase}}</td>
+    <td><b> : </b>{{company.industry}}</td>
   </tr>
-  <tr>
+  <tr *ngIf="company.url">
     <td><b>URL</b></td>
     <td><b> : </b><a href="http://{{company.url}}">{{company.url}}</a></td>
   </tr>
-  <tr>
+  <tr *ngIf="tags.length>0">
     <td><b>Tags</b></td>
     <td><b> : </b></td>
   </tr>
@@ -62,7 +62,7 @@
 </div>
 
 <hr/>
-<agm-map [latitude]="company.latitude" [longitude]="company.longitude" [zoom] = "2">
+<agm-map [latitude]="company.latitude" [longitude]="company.longitude" [zoom] = "2" *ngIf="company.latitude">
   <agm-marker [latitude]="company.latitude" [longitude]="company.longitude"></agm-marker>
 </agm-map>
 </div>

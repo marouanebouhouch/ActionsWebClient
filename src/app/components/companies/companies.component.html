@@ -18,7 +18,8 @@
           <img class="uk-preserve-width uk-border-circle" src="{{c.logo}}" width="40" alt="No logo">
         </td>
         <td>{{c.name}}</td>
-        <td>{{c.turnover | currency}}</td>
+        <td *ngIf="c.turnover !== 0">{{c.turnover | currency}}</td>
+        <td *ngIf="c.turnover == 0"></td>
         <td>{{c.ceo}}</td>
       </tr>
       </tbody>
