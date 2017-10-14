@@ -3,6 +3,7 @@ import {Company} from '../../interfaces/company';
 import {Tag} from '../../interfaces/tag';
 import {TagService} from '../../services/tag.service';
 import {CompanyService} from '../../services/company.service';
+import {Http} from '@angular/http';
 
 
 @Component({
@@ -12,19 +13,25 @@ import {CompanyService} from '../../services/company.service';
 })
 export class CompanyDetailsComponent implements OnInit, OnChanges {
 
-  @Input() company: Company;
+  @Input() company_id: number;
   @Output() toDelete = new EventEmitter<Company>();
-  @Output() test: number;
   tags: Tag[];
+  company: Company;
   constructor(private tagsService: TagService, private companyService: CompanyService) { }
 
   ngOnInit() {
+    this.companyService.getCompany(this.company_id)
+      .then(response => this.company = response);
+    this.tagsService.getTagsByCompany(this.company_id)
+      .then(response => console.log(response));
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.company) {
-      this.tagsService.getTagsByCompany(changes['company'].currentValue)
+    if (this.company_id) {
+      this.tagsService.getTagsByCompany(changes['company_id'].currentValue)
         .then(response => this.tags = response);
+      this.companyService.getCompany(changes['company_id'].currentValue)
+        .then(response => this.company = response);
     }
   }
 

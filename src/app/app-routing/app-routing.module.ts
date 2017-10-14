@@ -4,8 +4,11 @@ import {CompaniesComponent} from '../components/companies/companies.component';
 import {NewCompanyComponent} from '../components/new-company/new-company.component';
 
 const routes: Routes = [
-  { path: 'companies/all/{}', component: CompaniesComponent},
+  { path: 'companies/all/:id', component: CompaniesComponent},
+  { path: 'companies/all', component: CompaniesComponent},
   { path: 'companies/new', component: NewCompanyComponent},
+  { path: '',   redirectTo: '/companies/all', pathMatch: 'full' },
+  { path: '**',   redirectTo: '/companies/all', pathMatch: 'full' },
 ];
 
 @NgModule({

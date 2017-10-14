@@ -2,6 +2,7 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 import {Company} from '../../interfaces/company';
 import {CompanyService} from '../../services/company.service';
 import {TagService} from '../../services/tag.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 declare var UIkit: any;
 
@@ -14,15 +15,17 @@ export class CompaniesComponent implements OnInit {
 
   companies: Company[];
   p = 1;
-  @Output() selectedCompany: Company;
-  constructor(private companyService: CompanyService, private tagsService: TagService) {}
+  @Output() selectedCompany: number;
+
+  constructor(private companyService: CompanyService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.companyService.getCompanies().then(response => this.companies = response);
+    this.selectedCompany = Number(this.route.snapshot.paramMap.get('id'));
+    this.companyService.getCompanies().subscribe(response => this.companies = response);
   }
 
-  selectCompany(company: Company) {
-    this.selectedCompany = company;
+  selectCompany(company_id: number) {
+    this.selectedCompany = company_id;
   }
 
   deleteCompany(company: Company) {

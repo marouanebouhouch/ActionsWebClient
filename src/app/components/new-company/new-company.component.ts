@@ -4,6 +4,7 @@ import {TagService} from '../../services/tag.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Company} from '../../interfaces/company';
 import {CompanyService} from '../../services/company.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-company',
@@ -30,7 +31,8 @@ export class NewCompanyComponent implements OnInit {
   showTags = false;
   showMap = false;
   tagExists;
-  constructor(private companyService: CompanyService, private tagService: TagService, private formBuilder: FormBuilder) {
+
+  constructor(private companyService: CompanyService, private tagService: TagService, private formBuilder: FormBuilder, private router: Router) {
     this.formGroup = formBuilder.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
       'ceo': [],
@@ -74,7 +76,12 @@ export class NewCompanyComponent implements OnInit {
       company.longitude = null;
       company.latitude = null;
     }
-    this.companyService.saveCompany(company, this.newCompanyTags);
+    this.companyService.saveCompany(company, this.newCompanyTags)
+      .subscribe(response => {
+        this.newCompany = response.json();
+        this.companyService.attachTagsToCompany(response.json().id, this.newCompanyTags)
+          .then(resp => this.router.navigate(['companies/all', response.json().id]));
+      });
   }
 
   toggleCompanyTag(tag: Tag, isChecked: boolean) {

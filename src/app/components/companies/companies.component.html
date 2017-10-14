@@ -13,7 +13,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let c of companies | paginate: { itemsPerPage: 8, currentPage: p }" class="clickable"
-          (click)="selectCompany(c)" [ngClass]="selectedCompany ? (selectedCompany.id == c.id? 'selected' : '' ) : ''" >
+          (click)="selectCompany(c.id)" [ngClass]="selectedCompany ? (selectedCompany == c.id? 'selected' : '' ) : ''">
         <td>
           <img class="uk-preserve-width uk-border-circle" src="{{c.logo}}" width="40" alt="No logo">
         </td>
@@ -30,6 +30,6 @@
 
 
   <div class="divider">
-    <app-company-details [company]="selectedCompany" *ngIf="selectCompany" (toDelete)="deleteCompany($event)"></app-company-details>
+    <app-company-details [company_id]="selectedCompany" *ngIf="selectedCompany" (toDelete)="deleteCompany($event)"></app-company-details>
   </div>
 </div>

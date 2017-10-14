@@ -21,8 +21,8 @@ export class TagService {
       .catch(this.handleError);
   }
 
-  getTagsByCompany(company: Company) {
-    return this.http.get(companiesUrl + '/' + company.id + '/tags')
+  getTagsByCompany(company_id: number) {
+    return this.http.get(companiesUrl + '/' + company_id + '/tags')
       .toPromise()
       .then(response => response.json()._embedded.tags)
       .catch(this.handleError);

@@ -33,12 +33,12 @@
     <td><b>URL</b></td>
     <td><b> : </b><a href="http://{{company.url}}">{{company.url}}</a></td>
   </tr>
-  <tr *ngIf="tags.length>0">
+  <tr *ngIf="tags && tags.length>0">
     <td><b>Tags</b></td>
     <td><b> : </b></td>
   </tr>
 </table>
-<div *ngIf="tags">
+<div *ngIf="tags && tags.length>0">
 <span *ngFor="let t of tags" class="uk-badge left-space">
   {{t.label | titlecase}} <span uk-icon="icon: close" class="clickable" (click)="removeTagFromCompany(company,t)"></span>
 </span>

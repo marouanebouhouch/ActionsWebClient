@@ -4,20 +4,19 @@ import 'rxjs/add/operator/toPromise';
 import {Company} from '../interfaces/company';
 import {Tag} from '../interfaces/tag';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Router} from '@angular/router';
 
 const companiesUrl = 'http://localhost:8080/companies';
 
 @Injectable()
 export class CompanyService {
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
   getCompanies() {
     return this.http.get(companiesUrl)
-      .toPromise()
-      .then(response => response.json()._embedded.companies)
-      .catch(this.handleError);
+      .map(response => response.json()._embedded.companies)
   }
 
   getCompany(id: number) {
@@ -40,18 +39,19 @@ export class CompanyService {
       .then(() => null)
       .catch(this.handleError);
   }
+
   saveCompany(company: Company, tags: Tag[]) {
-    this.http.post(companiesUrl, company)
-      .toPromise()
-      .then(resp => {
-        tags.forEach(tag => {
-          console.log(companiesUrl + '/' + resp.json().id + '/' + 'attachtag/' + tag.id);
-          this.http.put(companiesUrl + '/' + resp.json().id + '/' + 'attachtag/' + tag.id, this.headers)
-            .toPromise()
-            .then(() => null)
-            .catch(this.handleError);
-        });
+    return this.http.post(companiesUrl, company)
+      .map( response => {
+        response.json().tags = tags;
+        return response;
       })
+  }
+
+  attachTagsToCompany(company_id: number, tags: Tag[]) {
+    return this.http.put(companiesUrl + '/' + company_id + '/' + 'attachtags' , tags, this.headers)
+      .toPromise()
+      .then(resp => resp.json())
       .catch(this.handleError);
   }
 

@@ -17,28 +17,32 @@
 
       <div class="uk-margin">
         <label class="uk-form-label" for="address">Address</label>
-        <input class="uk-input uk-form-small" type="text" id="address" formControlName="address" [(ngModel)]="newCompanyAddress">
+        <input class="uk-input uk-form-small" type="text" id="address"
+               formControlName="address" [(ngModel)]="newCompanyAddress">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="ceo">CEO</label>
-        <input class="uk-input uk-form-small" type="text" id="ceo" formControlName="ceo" [(ngModel)]="newCompanyCeo">
+        <input class="uk-input uk-form-small" type="text" id="ceo"
+               formControlName="ceo" [(ngModel)]="newCompanyCeo">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="catchphrase">Catchphrase</label>
-        <input class="uk-input uk-form-small" type="text" id="catchphrase" formControlName="catchphrase"
-               [(ngModel)]="newCompanyCatchphrase">
+        <input class="uk-input uk-form-small" type="text" id="catchphrase"
+               formControlName="catchphrase" [(ngModel)]="newCompanyCatchphrase">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="turnover">Turnover</label>
-        <input class="uk-input uk-form-small" type="number" id="turnover" formControlName="turnover" [(ngModel)]="newCompanyTurnover">
+        <input class="uk-input uk-form-small" type="number" id="turnover"
+               formControlName="turnover" [(ngModel)]="newCompanyTurnover">
       </div>
 
       <div class="uk-margin">
         <label class="uk-form-label" for="industry">Industry</label>
-        <input class="uk-input uk-form-small" type="text" id="industry" formControlName="industry" [(ngModel)]="newCompanyIndustry">
+        <input class="uk-input uk-form-small" type="text" id="industry"
+               formControlName="industry" [(ngModel)]="newCompanyIndustry">
       </div>
 
       <div class="uk-margin">
@@ -63,10 +67,14 @@
 
       <div class="uk-margin uk-grid-small" uk-grid>
         <div class="uk-width-5-6@s">
-          <input class="uk-input uk-form-small" type="text" placeholder="Add a new tag" formControlName="tagLabel" [(ngModel)]="tagLabel">
+          <input class="uk-input uk-form-small" type="text" placeholder="Add a new tag"
+                 formControlName="tagLabel" [(ngModel)]="tagLabel">
         </div>
         <div class="uk-width-1-6@s">
-          <button class="uk-button uk-button-primary uk-button-small uk-width-1-1" (click)="addTag(tagLabel)">Add</button>
+          <button type="button" class="uk-button uk-button-primary uk-button-small uk-width-1-1"
+                  (click)="addTag(tagLabel)">
+            Add
+          </button>
         </div>
       </div>
 
@@ -82,7 +90,10 @@
         </agm-map>
       </div>
 
-      <button class="uk-button uk-button-primary rightFloat submit-margins" type="submit" [disabled]="!formGroup.valid">Submit</button>
+      <button class="uk-button uk-button-primary rightFloat submit-margins" type="submit"
+              [disabled]="!formGroup.valid">
+        Submit
+      </button>
 
     </form>
   </div>
