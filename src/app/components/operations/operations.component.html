@@ -1,0 +1,92 @@
+<div class="uk-grid-small uk-child-width-expand@s container" uk-grid>
+  <div class="left-side" *ngIf="company">
+
+    <div class="uk-cover-container" *ngIf="company.logo">
+      <canvas width="1000" height="100"></canvas>
+      <img uk-cover src="{{company.logo}}" alt="No logo">
+    </div>
+    <table class="left-space">
+      <tr>
+        <td><b>Name</b></td>
+        <td><b> : </b>{{company.name}}</td>
+      </tr>
+      <tr *ngIf="company.address">
+        <td><b>Address</b></td>
+        <td><b> : </b>{{company.address}}</td>
+      </tr>
+      <tr *ngIf="company.ceo">
+        <td><b>CEO</b></td>
+        <td><b> : </b>{{company.ceo}}</td>
+      </tr>
+      <tr>
+      <tr *ngIf="company.catchphrase">
+        <td><b>Catchphrase</b></td>
+        <td><b> : </b>{{company.catchphrase}}</td>
+      </tr>
+      <tr *ngIf="company.turnover !== 0">
+        <td><b>Turnover</b></td>
+        <td><b> : </b>{{company.turnover | currency}}</td>
+      </tr>
+      <tr *ngIf="company.industry">
+        <td><b>Industry</b></td>
+        <td><b> : </b>{{company.industry}}</td>
+      </tr>
+      <tr *ngIf="company.url">
+        <td><b>URL</b></td>
+        <td><b> : </b><a href="http://{{company.url}}">{{company.url}}</a></td>
+      </tr>
+      <tr *ngIf="tags && tags.length>0">
+        <td><b>Tags</b></td>
+        <td><b> : </b></td>
+      </tr>
+    </table>
+    <div *ngIf="tags && tags.length>0">
+      <span *ngFor="let t of tags" class="uk-badge left-space">
+        {{t.label | titlecase}}
+      </span>
+    </div>
+
+    <hr/>
+    <agm-map [latitude]="company.latitude" [longitude]="company.longitude" [zoom] = "2" *ngIf="company.latitude">
+      <agm-marker [latitude]="company.latitude" [longitude]="company.longitude"></agm-marker>
+    </agm-map>
+
+  </div>
+
+  <div class="divider right-side">
+    <div class="uk-margin">
+      <select class="uk-select" (change)="changeOps($event.target.value)">
+        <option value="s" selected>Sells</option>
+        <option value="b">Buys</option>
+      </select>
+    </div>
+    <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-hover">
+      <thead>
+      <tr>
+        <th>Actions</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="operations == 's'">
+      <tr *ngFor="let o of sells | orderBy: 'date_action': 'reverse' | paginate: { itemsPerPage: 11, currentPage: p }">
+        <td>{{o.nb_actions}}</td>
+        <td>{{o.price_action | currency}}</td>
+        <td>{{o.date_action | date}}</td>
+        <td>{{o.nb_actions * o.price_action | currency}}</td>
+      </tr>
+      </tbody>
+      <tbody *ngIf="operations == 'b'">
+      <tr *ngFor="let o of buys | orderBy: 'date_action': 'reverse' | paginate: { itemsPerPage: 11, currentPage: p }">
+        <td>{{o.nb_actions}}</td>
+        <td>{{o.price_action | currency}}</td>
+        <td>{{o.date_action | date}}</td>
+        <td>{{o.nb_actions * o.price_action | currency}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event" class="uk-pagination"></pagination-controls>
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
-<div class="uk-grid-collapse uk-child-width-expand@s" uk-grid>
-  <div >
+<div class="uk-grid-collapse uk-child-width-expand@s container" uk-grid>
+  <div class="left-side">
     <h1 class="uk-heading-line"><span>Companies</span></h1>
     <hr/>
     <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-hover">
@@ -29,7 +29,7 @@
   </div>
 
 
-  <div class="divider">
+  <div class="divider right-side">
     <app-company-details [company_id]="selectedCompany" *ngIf="selectedCompany" (toDelete)="deleteCompany($event)"></app-company-details>
   </div>
 </div>

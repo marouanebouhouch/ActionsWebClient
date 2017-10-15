@@ -9,9 +9,12 @@ import {HttpModule} from '@angular/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 import {TagService} from './services/tag.service';
+import {OperationService} from './services/operation.service';
 import { AgmCoreModule } from '@agm/core';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { OperationsComponent } from './components/operations/operations.component';
+import {Ng2OrderModule} from 'ng2-order-pipe';
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
     AppComponent,
     CompaniesComponent,
     CompanyDetailsComponent,
-    NewCompanyComponent
+    NewCompanyComponent,
+    OperationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +34,10 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
       apiKey: 'AIzaSyBbJ88RITpYfSuYe8RPxDK1xyHl77BoD_Y'
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2OrderModule
   ],
-  providers: [CompanyService, TagService],
+  providers: [CompanyService, TagService, OperationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
