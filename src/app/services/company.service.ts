@@ -49,7 +49,8 @@ export class CompanyService {
   }
 
   updateCompany(company: Company, tags: Tag[]) {
-    return this.http.put(companiesUrl, company)
+    console.log(company);
+    return this.http.post(companiesUrl, company)
       .map( response => {
         let company_id = response.json().id;
         this.removeTagsfromCompany(company_id)

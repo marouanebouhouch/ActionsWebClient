@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
-import {Company} from '../interfaces/company';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
-import {Observable} from 'rxjs/Observable';
 
 
 const tagsUrl = 'http://localhost:8080/tags';
