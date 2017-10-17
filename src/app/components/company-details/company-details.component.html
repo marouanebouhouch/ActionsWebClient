@@ -49,10 +49,10 @@
     <span uk-icon="icon: trash"></span>
     Delete
   </button>
-  <button class="uk-button uk-button-primary">
+  <a routerLink="/companies/update/{{company.id}}"><button class="uk-button uk-button-primary">
     <span uk-icon="icon: pencil"></span>
     Update
-  </button>
+  </button></a>
   <div class="rightFloat">
     <a routerLink="/operations/{{company.id}}"><button class="uk-button uk-button-secondary">
       <span uk-icon="icon: list"></span>

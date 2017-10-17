@@ -15,6 +15,7 @@ import { NewCompanyComponent } from './components/new-company/new-company.compon
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OperationsComponent } from './components/operations/operations.component';
 import {Ng2OrderModule} from 'ng2-order-pipe';
+import { UpdateCompanyComponent } from './components/update-company/update-company.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {Ng2OrderModule} from 'ng2-order-pipe';
     CompanyDetailsComponent,
     NewCompanyComponent,
     OperationsComponent,
+    UpdateCompanyComponent,
   ],
   imports: [
     BrowserModule,
